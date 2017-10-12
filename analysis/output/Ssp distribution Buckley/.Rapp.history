@@ -1,0 +1,710 @@
+rm(list=ls())#
+setwd("/Users/marinacostarillo/Desktop/R data")#
+zf_table = read.csv("R_Buckley.csv", header = TRUE, skipNul =TRUE)#
+subset = (zf_table)[,seq(1, 4)] # taking just lat, long, ssp and number (of individuals)#
+subset = na.omit(subset) # taking NAs off#
+head(subset)#
+#
+# creating new table (data.frame)#
+latlong_table = data.frame()#
+latlong_table = unique(subset[,c(1,2)])#
+latlong_table[,seq(3, length(unique(subset[,3]))+2)] = 0 # 1st column lat, 2nd column long, 3rd column ssp starts#
+#head(latlong_table)#
+#
+# naming columns with species names#
+species_names = unique(subset$ssp)#
+string = c("lat", "long", as.character(species_names))#
+names(latlong_table) = string#
+head(latlong_table)
+cat("\014")
+system('clear')
+rm(list=ls())#
+#
+library("DDD")#
+source("/Users/marinacostarillo/Dropbox/M2_Groningen/SCRIPTS/scripts/L2phyloNew.r")#
+source("/Users/marinacostarillo/Dropbox/M2_Groningen/SCRIPTS/scripts/la_change_function.r")
+library("DDD")
+rm(list=ls())#
+#
+library("DDD")#
+source("/Users/marinacostarillo/Dropbox/M2_Groningen/SCRIPTS/scripts/L2phyloNew.r")#
+source("/Users/marinacostarillo/Dropbox/M2_Groningen/SCRIPTS/scripts/la_change_function.r")
+m(list=ls())#
+#
+library("DDD")#
+source("/Users/marinacostarillo/Dropbox/M2_Groningen/SCRIPTS/scripts/L2phyloNew.r")#
+source("/Users/marinacostarillo/Dropbox/M2_Groningen/SCRIPTS/scripts/la_change_function.r")#
+#
+# ddmodel: Sets the model of diversity-dependence:#
+# ddmodel == 1 : linear dependence in speciation rate#
+# ddmodel == 2 : exponential dependence in speciation rate#
+# ddmodel == 3 : linear dependence in extinction rate#
+# ddmodel == 4 : exponential dependence in extinction rate#
+# ddmodel == 5 : linear dependence in speciation and extinction rate#
+#
+ddmodel = 1#
+la0 = 0.3 # initial specition rate#
+mu0 = 0.1 # initial extinction rate#
+K = 10 # K or K'?#
+age = 30 # Time for which the simulation will run#
+change_prob = 0.2 # Probability that a change in speciation rate will occur (at each cladogenesis event)#
+change_size = 1.1 # Size of the change in the speciation rate (original speciation rate times change_size; 1.1 mean an increase of 10%)#
+#
+clades = la_change(ddmodel, age, la0, mu0, K, change_prob, change_size)#
+#clades = cladelist
+rm(list=ls())#
+#
+library("DDD")#
+source("/Users/marinacostarillo/Dropbox/M2_Groningen/SCRIPTS/scripts/L2phyloNew.r")#
+source("/Users/marinacostarillo/Dropbox/M2_Groningen/SCRIPTS/scripts/la_change_function.r")#
+#
+# ddmodel: Sets the model of diversity-dependence:#
+# ddmodel == 1 : linear dependence in speciation rate#
+# ddmodel == 2 : exponential dependence in speciation rate#
+# ddmodel == 3 : linear dependence in extinction rate#
+# ddmodel == 4 : exponential dependence in extinction rate#
+# ddmodel == 5 : linear dependence in speciation and extinction rate#
+#
+ddmodel = 1#
+la0 = 0.3 # initial specition rate#
+mu0 = 0.1 # initial extinction rate#
+K = 10 # K or K'?#
+age = 30 # Time for which the simulation will run#
+change_prob = 0.2 # Probability that a change in speciation rate will occur (at each cladogenesis event)#
+change_size = 1.1 # Size of the change in the speciation rate (original speciation rate times change_size; 1.1 mean an increase of 10%)#
+#
+clades = la_change(ddmodel, age, la0, mu0, K, change_prob, change_size)#
+#clades = cladelist
+clades
+rm(list=ls())#
+#
+library("DDD")#
+source("/Users/marinacostarillo/Dropbox/M2_Groningen/SCRIPTS/scripts/L2phyloNew.r")#
+source("/Users/marinacostarillo/Dropbox/M2_Groningen/SCRIPTS/scripts/la_change_function.r")#
+#
+# ddmodel: Sets the model of diversity-dependence:#
+# ddmodel == 1 : linear dependence in speciation rate#
+# ddmodel == 2 : exponential dependence in speciation rate#
+# ddmodel == 3 : linear dependence in extinction rate#
+# ddmodel == 4 : exponential dependence in extinction rate#
+# ddmodel == 5 : linear dependence in speciation and extinction rate#
+#
+ddmodel = 1#
+la0 = 0.3 # initial specition rate (in millions of years)#
+mu0 = 0.1 # initial extinction rate (in millions of years)#
+K = 10 # K' maximum possible number of lineages in the tree#
+age = 70 # Time (in millions of years) for which the simulation will run#
+change_prob = 0.2 # Probability that a change in speciation rate will occur (at each cladogenesis event)#
+change_size = 1.1 # Size of the change in the speciation rate (original speciation rate times change_size; 1.1 mean an increase of 10%)#
+#
+clades = la_change(ddmodel, age, la0, mu0, K, change_prob, change_size)#
+#clades = cladelist
+clades
+str(clades)
+length(clades)
+maN = list()#
+cont = c()
+i=1
+nrow(clades[[i]]$matrix) > 0
+i=2
+nrow(clades[[i]]$matrix) > 0
+i=3
+nrow(clades[[i]]$matrix) > 0
+i=4
+nrow(clades[[i]]$matrix) > 0
+i=5
+nrow(clades[[i]]$matrix) > 0
+i=6
+nrow(clades[[i]]$matrix) > 0
+i=7
+nrow(clades[[i]]$matrix) > 0
+i=8
+nrow(clades[[i]]$matrix) > 0
+i=1
+cont = c(cont,i)#
+		liv = data.frame(clades[[i]]$matrix[,1], 1)
+cont
+liv
+clades[[i]]$matrix
+str(clades)
+clades
+liv
+any(which(clades[[i]]$matrix[,4]!=-1)!=0)
+clades[[i]]$matrix[,4]!=-1
+i
+clades[[i]]$matrix
+which(clades[[i]]$matrix[,4]!=-1
+)
+which(clades[[i]]$matrix[,4]!=-1)
+any(which(clades[[i]]$matrix[,4]!=-1))
+any(which(clades[[i]]$matrix[,4]!=-1)!=0)
+extinct = which(clades[[i]]$matrix[,4]!=-1))
+extinct = which(clades[[i]]$matrix[,4]!=-1)
+any(extinct)
+extinct = which(clades[[i]]$matrix[,4]==-1)
+any(extinct)
+extinct
+extinct = which(clades[[i]]$matrix[,4]==-1)
+which(clades[[i]]$matrix[,4]!=-1)
+extinct
+extinct = which(clades[[i]]$matrix[,4]!=-1)
+ext = data.frame(clades[[i]]$matrix[,4][extinct], -1)
+ext
+liv = data.frame(clades[[i]]$matrix[,1], 1)
+liv
+branching_time = data.frame(clades[[i]]$matrix[,1], 1)#
+#
+		extinct = which(clades[[i]]$matrix[,4]!=-1)
+extinction_time = data.frame(clades[[i]]$matrix[,4][extinct], -1)#
+			names(branching_time) = names(extinction_time) = c("time", "event")
+branching_time
+extinction_time
+maN[[i]] = rbind(liv, ext)
+i
+maN = list()
+maN[[i]] = rbind(liv, ext)
+maN[[i]] = rbind(branching_time, extinction_time)
+maN
+maN[which(maN[,"time"]==-1),"time"]
+time
+which(maN[,"time"]==-1)
+maN[[i]] = maN[[i]][with(maN[[i]], order(time)), ]
+maN
+N = cumsum(maN[[i]][,"event"])
+N
+maN[[i]] = cbind(maN[[i]], N)
+N_subclade = cumsum(maN[[i]][,"event"])#
+			maN[[i]] = cbind(maN[[i]], N_subclade)
+maN
+maN = list()#
+cont = c()#
+#
+for(i in 1:length(clades)){ # length of clades is the number of subclades within the tree#
+#
+	if (nrow(clades[[i]]$matrix) > 0) { # why?? isn't this always true?#
+#
+		cont = c(cont,i)#
+		branching_time = data.frame(clades[[i]]$matrix[,1], 1)#
+		names(branching_time) = c("time", "event") # event == 1 means speciation#
+#
+		extinct = which(clades[[i]]$matrix[,4]!=-1)#
+#
+		if(any(extinct)){#
+			extinction_time = data.frame(clades[[i]]$matrix[,4][extinct], -1)#
+			names(extinction_time) = c("time", "event")#
+#
+			maN[[i]] = rbind(branching_time, extinction_time) #
+			maN[[i]] = maN[[i]][with(maN[[i]], order(time)), ] # ordering by time #
+#
+			N_subclade = cumsum(maN[[i]][,"event"])#
+			maN[[i]] = cbind(maN[[i]], N_subclade)#
+#
+			rm(branching_time, extinction_time, N_subclade)#
+#
+		}else{#
+			maN[[i]] = branching_time#
+			maN[[i]] = maN[[i]][with(maN[[i]], order(time)), ] # ordering by time #
+			N_subclade = cumsum(maN[[i]][,"event"])#
+			maN[[i]] = cbind(maN[[i]], N_subclade)	#
+#
+			rm(branching_time, N_subclade)#
+		}#
+	}#
+}
+maN
+clades[[i]]$matrix
+clades
+nrow(clades[[i]]$matrix)
+nrow(clades$matrix)
+plot(maN[[1]][,"N_subclade"]~maN[[1]][,"time"], type="l", #
+	xlim=c(0,max(clades[[1]]$time)), ylim=c(0,max(clades[[1]]$Ntotal)),#
+	xlab=c("Time (Mya)"), ylab=c("Number of Lineages"), lwd=1.5 )
+for(i in cont){ # to plot each subclade with different color #
+	lines(maN[[i]][,"N_subclade"]~maN[[i]][,"time"], type="l", lwd=1.5, col=rainbow(length(cont), #
+		v=1, s=1, start=0, end=1)[i] )#
+}
+plot(maN[[1]][,"N_subclade"]~maN[[1]][,"time"], type="l", #
+	xlim=c(0,max(clades[[1]]$time)), ylim=c(0,max(clades[[1]]$Ntotal)),#
+	xlab=c("Time (Mya)"), ylab=c("Number of Lineages"), lwd=1.5 )#
+for(i in cont){ # to plot each subclade with different color #
+	lines(maN[[i]][,"N_subclade"]~maN[[i]][,"time"], type="l", lwd=1.5, col=rainbow(length(cont), #
+		v=1, s=1, start=0, end=1)[i] )#
+}
+lines(clades[[1]]$Ntotal ~clades[[1]]$time[-length(clades[[1]]$time)])
+plot(maN[[1]][,"N_subclade"]~maN[[1]][,"time"], type="l", #
+	xlim=c(0,max(clades[[1]]$time)), ylim=c(0,max(clades[[1]]$Ntotal)),#
+	xlab=c("Time (Mya)"), ylab=c("Number of Lineages"), lwd=1.5 )#
+for(i in cont){ # to plot each subclade with different color #
+	lines(maN[[i]][,"N_subclade"]~maN[[i]][,"time"], type="l", lwd=1.5, col=rainbow(length(cont), #
+		v=1, s=1, start=0, end=1)[i] )#
+}#
+lines(clades[[1]]$Ntotal ~clades[[1]]$time[-length(clades[[1]]$time)])
+length(clades[[1]]$time)
+clades[[1]]$time
+plot(clades[[1]]$Ntotal~clades[[1]]$time[-length(clades[[1]]$time)])
+plot(clades[[1]]$Ntotal~clades[[1]]$time[-length(clades[[1]]$time)]), type="l", #
+	xlim=c(0,max(clades[[1]]$time)), ylim=c(0,max(clades[[1]]$Ntotal)),#
+	xlab=c("Time (Mya)"), ylab=c("Number of Lineages"), lwd=1.5 )
+plot(clades[[1]]$Ntotal~clades[[1]]$time[-length(clades[[1]]$time)], type="l", #
+	xlim=c(0,max(clades[[1]]$time)), ylim=c(0,max(clades[[1]]$Ntotal)),#
+	xlab=c("Time (Mya)"), ylab=c("Number of Lineages"), lwd=1.5 )
+plot(clades[[1]]$Ntotal~clades[[1]]$time, type="l", #
+	xlim=c(0,max(clades[[1]]$time)), ylim=c(0,max(clades[[1]]$Ntotal)),#
+	xlab=c("Time (Mya)"), ylab=c("Number of Lineages"), lwd=1.5 )
+clades[[1]]$time
+clades[[1]]$time[-length(clades[[1]]$time)]
+plot(clades[[1]]$Ntotal~clades[[1]]$time[-length(clades[[1]]$time)], type="l", #
+	xlim=c(0,max(clades[[1]]$time)), ylim=c(0,max(clades[[1]]$Ntotal)),#
+	xlab=c("Time (Mya)"), ylab=c("Number of Lineages"), lwd=1.5 )
+plot(clades[[1]]$Ntotal~clades[[1]]$time[-length(clades[[1]]$time)], type="l", #
+	xlim=c(0,max(clades[[1]]$time)), ylim=c(0,max(clades[[1]]$Ntotal)),#
+	xlab=c("Time (Mya)"), ylab=c("Number of Lineages"), lwd=1.5 )#
+#
+for(i in cont){ # to plot each subclade with different color #
+	lines(maN[[i]][,"N_subclade"]~maN[[i]][,"time"], type="l", lwd=1.5, col=rainbow(length(cont), #
+		v=1, s=1, start=0, end=1)[i] )#
+}
+plot(clades[[1]]$Ntotal~clades[[1]]$time[-length(clades[[1]]$time)], type="l", #
+	xlim=c(0,max(clades[[1]]$time)), ylim=c(0,max(clades[[1]]$Ntotal)),#
+	xlab=c("Time (Mya)"), ylab=c("Number of Lineages"), lwd=1.5 )
+for(i in cont){ # to plot each subclade with different color #
+	lines(maN[[i]][,"N_subclade"]~maN[[i]][,"time"], type="l", lwd=1.5, col=rainbow(length(cont), #
+		v=1, s=1, start=0, end=1)[i] )#
+}
+plot(clades[[1]]$Ntotal~clades[[1]]$time[-length(clades[[1]]$time)], type="l", #
+	xlim=c(0,max(clades[[1]]$time)), ylim=c(0,max(clades[[1]]$Ntotal)),#
+	xlab=c("Time (Mya)"), ylab=c("Number of Lineages"), lwd=1.5 )#
+#
+for(i in cont){ # to plot each subclade with different color #
+	lines(maN[[i]][,"N_subclade"]~maN[[i]][,"time"], type="l", lwd=1.5, col=rainbow(length(cont), #
+		v=1, s=1, start=0, end=1)[i] )#
+}#
+#
+lines(clades[[1]]$Ntotal~clades[[1]]$time[-length(clades[[1]]$time)])
+rm(list=ls())#
+setwd("/Users/marinacostarillo/Google Drive/DOUTORADO/R_data")#
+# setwd("/Users/Marina/Google Drive/DOUTORADO/R_data")#
+#
+latlong_table = read.csv("LatLongTable.csv", header = TRUE)#
+latlong_table[,"sample_depth"] <- sub("'", "", latlong_table[, "sample_depth"]) # removes "" (trick to avoid intervals becoming dates in Excel)#
+#
+library(maps) #
+library(mapdata)#
+library(marmap)#
+unique(latlong_table[,"sample_type"])#
+### samples from tow#
+tow = which(latlong_table[,"sample_type"]==c("tow"))#
+### samples from the top deep_core#
+top_core = which(latlong_table[,"sample_type"]==c("top_core"))#
+### samples from the deep deep_core or more than one deep_core depth#
+deep_core = c( which(latlong_table[,"sample_type"]==c("deep_core")), which(latlong_table[,"sample_type"]==c("many_cores")) ) #
+### samples with unidentifies species from tow and non-tow:#
+# tow_nonid = intersect( which(latlong_table[,"tow"]==1) , which(latlong_table[,"ssp_richness"]==0) )#
+# nontow_nonid = intersect( which(latlong_table[,"tow"]==0) , which(latlong_table[,"ssp_richness"]==0) )#
+#
+# Additional top_core: many_cores that have top section as well #
+add_top_core_lat = c(-41.967000, -24.700000, -19.475000, 7.193330, 28.400000, 35.683330, 36.543000)#
+w = round(add_top_core_lat, digits = 3)#
+x = round(latlong_table[,"lat"], digits=3)#
+add_top_core = which(sapply(x,function(y){any(y==w)}))#
+top_core = c(top_core, add_top_core)#
+top_core = top_core[order(top_core)]
+length(latlong_table)
+latlong_table[1,]
+latlong_table[1,17]
+latlong_table[,17]
+latlong_table[17,]
+latlong_table[1,]
+latlong_table[1,17]
+latlong_table[,17]
+name(latlong_table[,17])
+names(latlong_table[,17])
+latlong_table[,17]
+latlong_table[,17:length(latlong_table[1,])]
+i=17
+species=i
+which(latlong_table[,species]!=0)
+top_core
+non_zero_abund = which(latlong_table[,species]!=0)
+intersect(non_zero_abund, top_core)
+i=20
+species=i
+non_zero_abund = which(latlong_table[,species]!=0)
+intersect(non_zero_abund, top_core)
+i=21
+species=i
+non_zero_abund = which(latlong_table[,species]!=0)
+intersect(non_zero_abund, top_core)
+non_zero_abund
+species
+latlong_table[,species]
+i=22
+species=i
+non_zero_abund = which(latlong_table[,species]!=0)
+intersect(non_zero_abund, top_core)
+names(latlong_table)
+plot_table = latlong_table[column,species]
+column = intersect(non_zero_abund, top_core)
+plot_table = latlong_table[column,species]
+plot_table = data.frame(plot_table,latlong_table[column,c("lat")]) # LATITUDE = plot_table[,2]#
+	plot_table = data.frame(plot_table,latlong_table[column,c"long"]) # LONGITUDE = plot_table[,3]
+plot_table = data.frame()
+plot_table = latlong_table[column,species] # log(latlong_table[column,species]) # ABUNDANCES = plot_table[,1]#
+	plot_table = data.frame(plot_table,latlong_table[column,c("lat")]) #
+	plot_table = data.frame(plot_table,latlong_table[column,c("long")])
+plot_table
+plot_table = data.frame()#
+	names(plot_table) = c("Abundances", "Lat", "Long")
+plot_table = latlong_table[column,species] # log(latlong_table[column,species]) # ABUNDANCES = plot_table[,1]#
+	plot_table = data.frame(plot_table,latlong_table[column,c("lat")]) #
+	plot_table = data.frame(plot_table,latlong_table[column,c("long")]) #
+	names(plot_table) = c("Abundances", "Lat", "Long")
+plot)table
+plot_table
+colnames(latlong[,i])#
+	plot_table
+colnames(latlong_table[,i])
+i
+colnames(latlong_table)
+colnames(latlong_table)[i]
+lista = list()
+list
+string =  c(names(latlong_table)[species], "lat", "long")
+string
+names(latlong_table)[species]
+colnames(latlong_table)[species]
+names(plot_table) = c(paste("Abundances"), "Lat", "Long")
+c(paste("Abund", colnames(latlong_table)[species]), "Lat", "Long")
+colnames(latlong_table)[species]#
+	plot_table
+names(plot_table) = c(paste(colnames(latlong_table)[species], "abund"), "Lat", "Long")#
+#
+	plot_table
+for(i in 17:length(latlong_table[1,])){#
+#
+	# species = which(names(latlong_table[1,]) == c("glutinata")) # for plotting specific species only#
+	species = i # column of the latlong_table#
+	plot_table = data.frame()#
+#
+	non_zero_abund = c()#
+#
+	non_zero_abund = which(latlong_table[,species]!=0)#
+	column = intersect(non_zero_abund, top_core)#
+	plot_table = latlong_table[column,species] # log(latlong_table[column,species]) # ABUNDANCES = plot_table[,1]#
+	plot_table = data.frame(plot_table,latlong_table[column,c("lat")]) #
+	plot_table = data.frame(plot_table,latlong_table[column,c("long")]) #
+	names(plot_table) = c(paste(colnames(latlong_table)[species], "abund"), "Lat", "Long")#
+#
+	plot_table#
+	pdf(paste(names(latlong_table[1,])[species], "_TOPCORE.pdf", sep=""))#
+		distrib.map(plot_table[,3], plot_table[,2], plot_table[,1], maintitle = names(latlong_table[1,])[species])#
+	dev.off()#
+	# dev.copy(png, paste(names(latlong_table[1,])[species], ".png", sep=""))#
+}
+source("/Users/marinacostarillo/Google Drive/DOUTORADO/R_data/maps_Isabel.R")#
+source("/Users/marinacostarillo/Google Drive/DOUTORADO/R_data/palettes_Isabel.R")#
+#
+setwd("/Users/marinacostarillo/Google Drive/DOUTORADO/R_data/Plots Marina Buckley")#
+#
+for(i in 17:length(latlong_table[1,])){#
+#
+	# species = which(names(latlong_table[1,]) == c("glutinata")) # for plotting specific species only#
+	species = i # column of the latlong_table#
+	plot_table = data.frame()#
+#
+	non_zero_abund = c()#
+#
+	non_zero_abund = which(latlong_table[,species]!=0)#
+	column = intersect(non_zero_abund, top_core)#
+	plot_table = latlong_table[column,species] # log(latlong_table[column,species]) # ABUNDANCES = plot_table[,1]#
+	plot_table = data.frame(plot_table,latlong_table[column,c("lat")]) #
+	plot_table = data.frame(plot_table,latlong_table[column,c("long")]) #
+	names(plot_table) = c(paste(colnames(latlong_table)[species], "abund"), "Lat", "Long")#
+#
+	plot_table#
+	pdf(paste(names(latlong_table[1,])[species], "_TOPCORE.pdf", sep=""))#
+		distrib.map(plot_table[,3], plot_table[,2], plot_table[,1], maintitle = names(latlong_table[1,])[species])#
+	dev.off()#
+	# dev.copy(png, paste(names(latlong_table[1,])[species], ".png", sep=""))#
+}
+i
+species = i # column of the latlong_table#
+	plot_table = data.frame()#
+#
+	non_zero_abund = c()#
+#
+	non_zero_abund = which(latlong_table[,species]!=0)#
+	column = intersect(non_zero_abund, top_core)#
+	plot_table = latlong_table[column,species] # log(latlong_table[column,species]) # ABUNDANCES = plot_table[,1]#
+	plot_table = data.frame(plot_table,latlong_table[column,c("lat")]) #
+	plot_table = data.frame(plot_table,latlong_table[column,c("long")]) #
+	names(plot_table) = c(paste(colnames(latlong_table)[species], "abund"), "Lat", "Long")#
+#
+	plot_table
+is(plot_table==NULL)
+is(plot_table==0)
+column
+is(column==0)
+is.null(column)
+is.nempty(column)
+is.empty(column)
+column==0
+if(column==0) print(c("OI"))
+if(column==0) print("OI")
+column
+length(column)
+length(column) ==0
+for(i in 17:length(latlong_table[1,])){#
+#
+	# species = which(names(latlong_table[1,]) == c("glutinata")) # for plotting specific species only#
+	species = i # column of the latlong_table#
+	plot_table = data.frame()#
+#
+	non_zero_abund = c()#
+#
+	non_zero_abund = which(latlong_table[,species]!=0)#
+	column = intersect(non_zero_abund, top_core)#
+#
+	if(length(column)==0) next#
+	plot_table = latlong_table[column,species] # log(latlong_table[column,species]) # ABUNDANCES = plot_table[,1]#
+	plot_table = data.frame(plot_table,latlong_table[column,c("lat")]) #
+	plot_table = data.frame(plot_table,latlong_table[column,c("long")]) #
+	names(plot_table) = c(paste(colnames(latlong_table)[species], "abund"), "Lat", "Long")#
+#
+	plot_table#
+#
+}
+for(i in 17:length(latlong_table[1,])){#
+#
+	# species = which(names(latlong_table[1,]) == c("glutinata")) # for plotting specific species only#
+	species = i # column of the latlong_table#
+	plot_table = data.frame()#
+#
+	non_zero_abund = c()#
+#
+	non_zero_abund = which(latlong_table[,species]!=0)#
+	column = intersect(non_zero_abund, top_core)#
+#
+	if(length(column)==0) next#
+	plot_table = latlong_table[column,species] # log(latlong_table[column,species]) # ABUNDANCES = plot_table[,1]#
+	plot_table = data.frame(plot_table,latlong_table[column,c("lat")]) #
+	plot_table = data.frame(plot_table,latlong_table[column,c("long")]) #
+	names(plot_table) = c(paste(colnames(latlong_table)[species], "abund"), "Lat", "Long")#
+#
+	print(plot_table)#
+#
+}
+for(i in 17:length(latlong_table[1,])){#
+#
+	# species = which(names(latlong_table[1,]) == c("glutinata")) # for plotting specific species only#
+	species = i # column of the latlong_table#
+	plot_table = data.frame()#
+#
+	non_zero_abund = c()#
+#
+	non_zero_abund = which(latlong_table[,species]!=0)#
+	column = intersect(non_zero_abund, top_core)#
+#
+	if(length(column)==0) next#
+	plot_table = latlong_table[column,species] # log(latlong_table[column,species]) # ABUNDANCES = plot_table[,1]#
+	plot_table = data.frame(plot_table,latlong_table[column,c("lat")]) #
+	plot_table = data.frame(plot_table,latlong_table[column,c("long")]) #
+	names(plot_table) = c(paste(colnames(latlong_table)[species], "abund"), "Lat", "Long")#
+#
+	print(plot_table)#
+	pdf(paste(names(latlong_table[1,])[species], "_TOPCORE.pdf", sep=""))#
+		distrib.map(plot_table[,3], plot_table[,2], plot_table[,1], maintitle = names(latlong_table[1,])[species])#
+	dev.off()#
+	# dev.copy(png, paste(names(latlong_table[1,])[species], ".png", sep=""))#
+}
+for(i in 17:length(latlong_table[1,])){#
+#
+	# species = which(names(latlong_table[1,]) == c("glutinata")) # for plotting specific species only#
+	species = i # column of the latlong_table#
+	plot_table = data.frame()#
+#
+	non_zero_abund = c()#
+#
+	non_zero_abund = which(latlong_table[,species]!=0)#
+	column = intersect(non_zero_abund, top_core)#
+#
+	if(length(column)==0) next#
+	plot_table = latlong_table[column,species] # log(latlong_table[column,species]) # ABUNDANCES = plot_table[,1]#
+	plot_table = data.frame(plot_table,latlong_table[column,c("lat")]) #
+	plot_table = data.frame(plot_table,latlong_table[column,c("long")]) #
+	names(plot_table) = c(paste(colnames(latlong_table)[species], "abund"), "Lat", "Long")#
+#
+	print(plot_table)#
+	pdf(paste(names(latlong_table[1,])[species], "_TOPCORE.pdf", sep=""))#
+		distrib.map(plot_table[,3], plot_table[,2], plot_table[,1], maintitle = names(latlong_table[1,])[species])#
+	dev.off()#
+	# dev.copy(png, paste(names(latlong_table[1,])[species], ".png", sep=""))#
+}
+paste(colnames(latlong_table)[species], "_TOPCORE.pdf", sep="")
+plot_table[,3], plot_table[,2], plot_table[,1]
+plot_table[,3]
+plot_table[,2]
+plot_table[,1]
+distrib.map(plot_table[,3], plot_table[,2], plot_table[,1], maintitle = colnames(latlong_table)[species])
+i
+i=19
+species = i # column of the latlong_table#
+	plot_table = data.frame()#
+#
+	non_zero_abund = c()#
+#
+	non_zero_abund = which(latlong_table[,species]!=0)#
+	column = intersect(non_zero_abund, top_core)#
+#
+	if(length(column)==0) next#
+	plot_table = latlong_table[column,species] # log(latlong_table[column,species]) # ABUNDANCES = plot_table[,1]#
+	plot_table = data.frame(plot_table,latlong_table[column,c("lat")]) #
+	plot_table = data.frame(plot_table,latlong_table[column,c("long")]) #
+	names(plot_table) = c(paste(colnames(latlong_table)[species], "abund"), "Lat", "Long")#
+#
+	print(plot_table)
+i=20
+species = i # column of the latlong_table#
+	plot_table = data.frame()#
+#
+	non_zero_abund = c()#
+#
+	non_zero_abund = which(latlong_table[,species]!=0)#
+	column = intersect(non_zero_abund, top_core)#
+#
+	if(length(column)==0) next#
+	plot_table = latlong_table[column,species] # log(latlong_table[column,species]) # ABUNDANCES = plot_table[,1]#
+	plot_table = data.frame(plot_table,latlong_table[column,c("lat")]) #
+	plot_table = data.frame(plot_table,latlong_table[column,c("long")]) #
+	names(plot_table) = c(paste(colnames(latlong_table)[species], "abund"), "Lat", "Long")#
+#
+	print(plot_table)
+i=22
+species = i # column of the latlong_table#
+	plot_table = data.frame()#
+#
+	non_zero_abund = c()#
+#
+	non_zero_abund = which(latlong_table[,species]!=0)#
+	column = intersect(non_zero_abund, top_core)#
+#
+	if(length(column)==0) next#
+	plot_table = latlong_table[column,species] # log(latlong_table[column,species]) # ABUNDANCES = plot_table[,1]#
+	plot_table = data.frame(plot_table,latlong_table[column,c("lat")]) #
+	plot_table = data.frame(plot_table,latlong_table[column,c("long")]) #
+	names(plot_table) = c(paste(colnames(latlong_table)[species], "abund"), "Lat", "Long")#
+#
+	print(plot_table)
+distrib.map(plot_table[,3], plot_table[,2], plot_table[,1], maintitle = colnames(latlong_table)[species])
+pdf(paste(colnames(latlong_table)[species], "_TOPCORE.pdf", sep=""))#
+		distrib.map(plot_table[,3], plot_table[,2], plot_table[,1], maintitle = colnames(latlong_table)[species])#
+	dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+distrib.map(plot_table[,3], plot_table[,2], plot_table[,1], maintitle = colnames(latlong_table)[species])
+i=23
+species = i # column of the latlong_table#
+	plot_table = data.frame()#
+#
+	non_zero_abund = c()#
+#
+	non_zero_abund = which(latlong_table[,species]!=0)#
+	column = intersect(non_zero_abund, top_core)#
+#
+	if(length(column)==0) next#
+	plot_table = latlong_table[column,species] # log(latlong_table[column,species]) # ABUNDANCES = plot_table[,1]#
+	plot_table = data.frame(plot_table,latlong_table[column,c("lat")]) #
+	plot_table = data.frame(plot_table,latlong_table[column,c("long")]) #
+	names(plot_table) = c(paste(colnames(latlong_table)[species], "abund"), "Lat", "Long")#
+#
+	print(plot_table)
+distrib.map(plot_table[,3], plot_table[,2], plot_table[,1], maintitle = colnames(latlong_table)[species])
+colnames(latlong_table)
+colnames(latlong_table)[17:76]
+table = read.table("clipboard")
+table = readClipboard()
+x <- read.table(file = "clipboard", sep = "\t")
+system("locate libSM.6.dylib")
+sp_slides = c("pachyderma",#
+"siphonifera",#
+"ruber",#
+"conglobatus",#
+"sacculifera",#
+"dehiscens",#
+"dutertrei",#
+"menardii",#
+"obliquiloculata",#
+"truncatulinoides",#
+"inflata",#
+"conglomerata",#
+"digitata",#
+"tumida",#
+"bulloides",#
+"crassaformis",#
+"scitula",#
+"hexagona",#
+"tenellus",#
+"rubescens",#
+"calida",#
+"universa",#
+"humilis",#
+"falconensis",#
+"hirsuta",#
+"quinqueloba")
+sp_slides
+i=1
+sp_clides[i]
+sp_slides[i]
+which(names(latlong_table[1,]) == sp_slides[i])
+latlong_table[,50]
+colnames(latlong_table)[50]
+for(i in 1:length(sp_slides){ ## for(i in 17:length(latlong_table[1,])){#
+#
+	# species = which(names(latlong_table[1,]) == c("glutinata")) # for plotting specific species only#
+	species = which(names(latlong_table[1,]) == sp_slides[i]) ## species = i # column of the latlong_table#
+	plot_table = data.frame()#
+#
+	non_zero_abund = c()#
+#
+	non_zero_abund = which(latlong_table[,species]!=0)#
+	column = intersect(non_zero_abund, top_core)#
+#
+	if(length(column)==0) next#
+	plot_table = latlong_table[column,species] # log(latlong_table[column,species]) # ABUNDANCES = plot_table[,1]#
+	plot_table = data.frame(plot_table,latlong_table[column,c("lat")]) #
+	plot_table = data.frame(plot_table,latlong_table[column,c("long")]) #
+	names(plot_table) = c(paste(colnames(latlong_table)[species], "abund"), "Lat", "Long")#
+#
+	print(plot_table)#
+	pdf(paste(colnames(latlong_table)[species], "_TOPCORE.pdf", sep=""))#
+		distrib.map(plot_table[,3], plot_table[,2], plot_table[,1], maintitle = colnames(latlong_table)[species])#
+	dev.off()#
+	# dev.copy(png, paste(names(latlong_table[1,])[species], ".png", sep=""))#
+}
+dev.off()
+for(i in 1:length(sp_slides)) { ## for(i in 17:length(latlong_table[1,])){#
+#
+	# species = which(names(latlong_table[1,]) == c("glutinata")) # for plotting specific species only#
+	species = which(names(latlong_table[1,]) == sp_slides[i]) ## species = i # column of the latlong_table#
+	plot_table = data.frame()#
+#
+	non_zero_abund = c()#
+#
+	non_zero_abund = which(latlong_table[,species]!=0)#
+	column = intersect(non_zero_abund, top_core)#
+#
+	if(length(column)==0) next#
+	plot_table = latlong_table[column,species] # log(latlong_table[column,species]) # ABUNDANCES = plot_table[,1]#
+	plot_table = data.frame(plot_table,latlong_table[column,c("lat")]) #
+	plot_table = data.frame(plot_table,latlong_table[column,c("long")]) #
+	names(plot_table) = c(paste(colnames(latlong_table)[species], "abund"), "Lat", "Long")#
+#
+	print(plot_table)#
+	pdf(paste(colnames(latlong_table)[species], "_TOPCORE.pdf", sep=""))#
+		distrib.map(plot_table[,3], plot_table[,2], plot_table[,1], maintitle = colnames(latlong_table)[species])#
+	dev.off()#
+	# dev.copy(png, paste(names(latlong_table[1,])[species], ".png", sep=""))#
+}
