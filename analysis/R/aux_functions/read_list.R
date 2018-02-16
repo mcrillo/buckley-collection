@@ -1,7 +1,5 @@
 # general function
 
-require(XLConnect)
-
 function_read_list <- function(file) {    
   
   wb = loadWorkbook(file) 
